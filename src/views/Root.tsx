@@ -6,6 +6,8 @@ import { GlobalStyle } from '../assets/styles/GlobalStyle';
 import { theme } from '../assets/styles/theme';
 import { Wrapper } from './Root.style';
 
+import AirPortSelection from '../components/templates/AirPortSelection/AirPortSelection';
+
 const Root: FC = () => {
   return (
     <Router>
@@ -13,7 +15,7 @@ const Root: FC = () => {
         <GlobalStyle />
         <Wrapper>
           <Routes>
-            <Route path="/" element={<div>Lotnix</div>} />
+            <Route path="/" element={<AirPortSelection />} />
           </Routes>
         </Wrapper>
       </ThemeProvider>
