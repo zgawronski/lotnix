@@ -1,0 +1,22 @@
+{
+  "root": true,
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "plugins": ["prettier", "@typescript-eslint"],
+  "rules": {
+    "prettier/prettier": ["warn", { "singleQuote": true, "printWidth": 150 }],
+    "import/first": 0
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "parser": "@typescript-eslint/parser"
+}
