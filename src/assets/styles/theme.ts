@@ -12,6 +12,9 @@ export const theme = {
     boxBackground: '#001F3F',
     darkRed: '#8B0000',
     red: '#FF0000',
+    buttonRed: '#FF3939',
+    buttonBlue: '#1AA7FF',
+    buttonGreen: '#6DD29B',
   },
   fontSize: {
     xxl: '3rem', // 48px
