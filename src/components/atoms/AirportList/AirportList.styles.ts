@@ -3,8 +3,8 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   ul {
     list-style-type: none;
-    margin: 1rem;
     padding: 0;
+
     li {
       border: 1px solid ${({ theme }) => theme.colors.buttonBlue};
       text-align: center;

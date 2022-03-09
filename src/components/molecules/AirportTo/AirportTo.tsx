@@ -1,8 +1,7 @@
 import React, { ChangeEvent, FC, useState } from 'react';
-import { Button } from '../../atoms/Button/Button';
 import { Input } from '../../atoms/Input/Input';
 import useDropdown from 'react-dropdown-hook';
-import { AirportDestination } from '../../atoms/AirportDestination/AirportDestination';
+import { AirportList } from '../../atoms/AirportList/AirportList';
 
 export const AirportTo: FC = () => {
   const [wrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
@@ -19,8 +18,7 @@ export const AirportTo: FC = () => {
   return (
     <div ref={wrapperRef}>
       <Input key="from" type="text" placeholder="skąd" onClick={menuHandler} value={inputText} onChange={inputHandler} />
-      <Button name="red">Lotnix</Button>
-      {dropdownOpen && <AirportDestination inputText={inputText} />}
+      {dropdownOpen && <AirportList inputText={inputText} />}
     </div>
   );
 };

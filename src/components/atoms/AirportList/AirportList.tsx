@@ -10,7 +10,16 @@ interface props {
 export const AirportList: FC<props> = ({ inputText }) => {
   return (
     <Wrapper>
-      <ul>{airports.map((airport) => airport.toLocaleLowerCase().includes(inputText.toLowerCase()) && <li key={airport}>{airport}</li>)}</ul>
+      <select name="list" size={8} id="airportsList">
+        {airports.map(
+          (airport) =>
+            airport.toLocaleLowerCase().includes(inputText.toLowerCase()) && (
+              <option value={airport} key={airport}>
+                {airport}
+              </option>
+            )
+        )}
+      </select>
     </Wrapper>
   );
 };
