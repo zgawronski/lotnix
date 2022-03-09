@@ -2,7 +2,6 @@ import React, { ChangeEvent, FC, useState } from 'react';
 import { Input } from '../../atoms/Input/Input';
 import useDropdown from 'react-dropdown-hook';
 import { AirportList } from '../../atoms/AirportList/AirportList';
-import { updateSourceFile } from 'typescript';
 
 export const AirportFrom: FC = () => {
   const [wrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
