@@ -1,6 +1,9 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { Button } from '../../atoms/Button/Button';
+import useDropdown from 'react-dropdown-hook';
+
+import { AirportList } from '../../molecules/AirportList/AirportList';
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,10 +18,20 @@ const Wrapper = styled.div`
 `;
 
 const AirPortSelection: FC = () => {
+  const [wrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
+  const menuHandler = () => {
+    toggleDropdown();
+  };
+
   return (
     <Wrapper>
-      <input type="text" placeholder="Wybierz Lotnisko"></input>
-      <Button name="red">Lotnix</Button>
+      <div ref={wrapperRef}>
+        <input type="text" placeholder="Wybierz Lotnisko"></input>
+        <Button onClick={menuHandler} name="red">
+          Lotnix
+        </Button>
+        {dropdownOpen && <AirportList />}
+      </div>
     </Wrapper>
   );
 };

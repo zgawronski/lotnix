@@ -6,7 +6,7 @@ import { GlobalStyle } from '../assets/styles/GlobalStyle';
 import { theme } from '../assets/styles/theme';
 import { Wrapper } from './Root.style';
 
-import AirPortSelection from '../components/templates/AirPortSelection/AirPortSelection';
+import AirPortSelection from '../components/templates/AirportSelection/AirportSelection';
 
 const Root: FC = () => {
   return (
