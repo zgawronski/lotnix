@@ -17,7 +17,7 @@ export const AirportTo: FC = () => {
   };
   return (
     <div ref={wrapperRef}>
-      <Input key="from" type="text" placeholder="skąd" onClick={menuHandler} value={inputText} onChange={inputHandler} />
+      <Input key="from" type="text" placeholder="skąd" onClick={menuHandler} value={inputText} onChange={inputHandler} id="to" />
       {dropdownOpen && <AirportList inputText={inputText} />}
     </div>
   );

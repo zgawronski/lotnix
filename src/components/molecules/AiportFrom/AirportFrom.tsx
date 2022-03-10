@@ -9,16 +9,16 @@ export const AirportFrom: FC = () => {
     toggleDropdown();
   };
 
-  const [inputText, setinputText] = useState<string>('');
+  const [inputText, setInputText] = useState<string>('');
 
   const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const text = e.target.value;
-    setinputText(text);
+    setInputText(text);
   };
 
   return (
     <div ref={wrapperRef}>
-      <Input key="from" type="text" placeholder="skąd" onClick={menuHandler} value={inputText} onChange={inputHandler} />
+      <Input key="from" type="text" placeholder="skąd" onClick={menuHandler} value={inputText} onChange={inputHandler} id="from" />
       {dropdownOpen && <AirportList inputText={inputText} />}
     </div>
   );
