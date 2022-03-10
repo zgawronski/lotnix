@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC, MouseEvent, useState } from 'react';
 
 import { airports } from '../../../mocks/data/airportsList';
 
@@ -8,20 +8,21 @@ interface props {
   inputText: string;
 }
 export const AirportList: FC<props> = ({ inputText }) => {
-  const [liText, setLiText] = useState<string>('');
-  const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const text = e.target.value;
-    setLiText(text);
-  };
+  const [liText, setLiText] = useState<any>();
+  // const liElHandler = (e: any) => {
+  //   setLiText({
+  //     (e.target.value).toString()
+  //   });
   console.log(liText);
+  // };
 
   return (
     <Wrapper>
       <ul>
         {airports.map(
           (airport) =>
-            airport.toLocaleLowerCase().includes(inputText.toLowerCase()) && (
-              <li value={airport} key={airport} onClick={(e) => inputHandler}>
+            airport.toLocaleLowerCase().includes(inputText?.toLowerCase()) && (
+              <li value={airport} key={airport} onClick={() => setLiText({ airport })}>
                 {airport}
               </li>
             )
