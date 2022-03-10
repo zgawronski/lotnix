@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { ChangeEvent, FC, MouseEvent, useState } from 'react';
 import styled from 'styled-components';
 import useDropdown from 'react-dropdown-hook';
 import { AirportList } from '../../atoms/AirportList/AirportList';
@@ -28,29 +28,39 @@ const AirPortSelection: FC = () => {
   const menuHandler = () => {
     toggleDropdown();
   };
-
-  const [inputText, setInputText] = useState<string>('');
+  const [connection, setConnection] = useState<any[]>();
+  const [inputText, setInputText] = useState<any>({
+    from: '',
+    to: '',
+  });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputText(text);
-    const text = e.target.value;
+    setInputText({
+      ...inputText,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const buttonHandler = (from: string, to: string) => {
-    const connection = [];
-    connection.push([from, to]);
+  const buttonHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const newConnection: any = {
+      from: '',
+      to: '',
+    };
+    setConnection([...inputText, newConnection]);
   };
+
   return (
-    <Wrapper>
+    <Wrapper as form onSubmit={buttonHandler}>
       <div ref={wrapperRef}>
-        <Input key="from" type="text" placeholder="skąd" onClick={menuHandler} value={inputText} onChange={handleInputChange} id="from" />
-        {dropdownOpen && <AirportList inputText={inputText} />}
+        <Input key="from" type="text" placeholder="skąd" onClick={menuHandler} value={inputText.from} onChange={handleInputChange} name="from" />
+        {dropdownOpen && <AirportList inputText={inputText.from} />}
       </div>
       <div>
-        <Input key="from" type="text" placeholder="skąd" onClick={menuHandler} value={inputText} onChange={handleInputChange} id="to" />
-        {dropdownOpen && <AirportList inputText={inputText} />}
+        <Input key="to" type="text" placeholder="skąd" onClick={menuHandler} value={inputText.to} onChange={handleInputChange} name="to" />
+        {dropdownOpen && <AirportList inputText={inputText.to} />}
       </div>
-      <Button onClick={() => buttonHandler} name="blue">
+      <Button type="submit" onClick={() => buttonHandler} name="blue">
         Wyszukaj
       </Button>
     </Wrapper>
