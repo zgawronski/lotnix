@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  postition: absolute;
   ul {
     list-style-type: none;
     padding: 0;

@@ -1,24 +1,23 @@
-import React, { ChangeEvent, FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Input } from '../../atoms/Input/Input';
 import useDropdown from 'react-dropdown-hook';
 import { AirportList } from '../../atoms/AirportList/AirportList';
 
-export const AirportTo: FC = () => {
+type Props = {
+  airTo: string;
+  setAirTo: (e: any) => void;
+};
+
+export const AirportTo: FC<Props> = (props) => {
   const [wrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
   const menuHandler = () => {
     toggleDropdown();
   };
 
-  const [inputText, setInputText] = useState<string>('');
-
-  const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const text = e.target.value;
-    setInputText(text);
-  };
   return (
     <div ref={wrapperRef}>
-      <Input key="from" type="text" placeholder="skąd" onClick={menuHandler} value={inputText} onChange={inputHandler} id="to" />
-      {dropdownOpen && <AirportList inputText={inputText} />}
+      <Input key="to" type="text" placeholder="dokąd" onClick={menuHandler} value={props.airTo} onChange={props.setAirTo} name="to" />
+      {dropdownOpen && <AirportList inputText={props.airTo} handleChange={props.setAirTo} />}
     </div>
   );
 };
