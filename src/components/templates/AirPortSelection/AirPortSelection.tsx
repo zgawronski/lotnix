@@ -26,6 +26,9 @@ const Wrapper = styled.div`
   button {
     max-height: 3ch;
   }
+  div {
+    margin: 1em;
+  }
 `;
 
 // const initialFormState = {
@@ -37,7 +40,7 @@ const AirPortSelection: FC = () => {
   const [findConnect, setFindingConnect] = useState<string[]>(['Wybierz lotnisko startowe', 'Wybierz lotnisko docelowe']);
   const [airFrom, setAirFrom] = useState<string>('');
   const [airTo, setAirTo] = useState<string>('');
-  const [finder, setFinder] = useState<string[]>(['', '']);
+  const [finder, setFinder] = useState<string>('');
   // const [inputText, setInputText] = useState<any>(initialFormState);
 
   // const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -47,7 +50,7 @@ const AirPortSelection: FC = () => {
   //   });
   // };
   const finded = 'jest połączenie';
-  const cantFind = '';
+  const cantFind = 'nima';
 
   const buttonHandler = (e: FormEvent) => {
     e.preventDefault();
@@ -56,8 +59,10 @@ const AirPortSelection: FC = () => {
     // setInputText(initialFormState);
     setAirFrom('');
     setAirTo('');
-    const whatIFind = FCList.map((finderek) => (finderek.includes(findConnect[0] && findConnect[1]) ? finded : cantFind));
-    setFinder(whatIFind);
+    const whatIFind = FCList.includes(findConnect);
+    console.log(findConnect);
+    console.log(FCList);
+    console.log(whatIFind);
   };
 
   return (
@@ -71,6 +76,12 @@ const AirPortSelection: FC = () => {
       </Wrapper>
       <Wrapper>
         <h1>{finder}</h1>
+        <div>
+          <h2>{findConnect[0]}</h2>
+        </div>
+        <div>
+          <h2>{findConnect[1]}</h2>
+        </div>
       </Wrapper>
     </>
   );
