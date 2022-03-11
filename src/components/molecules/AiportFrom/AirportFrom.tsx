@@ -13,11 +13,11 @@ export const AirportFrom: FC<Props> = (props) => {
   const menuHandler = () => {
     toggleDropdown();
   };
-
+  const inputB = props.airFrom;
   return (
     <div ref={wrapperRef}>
       <Input key="from" type="text" placeholder="skąd" onClick={menuHandler} value={props.airFrom} onChange={props.setAirFrom} name="from" />
-      {dropdownOpen && <AirportList inputText={props.airFrom} handleChange={props.setAirFrom} />}
+      {dropdownOpen && <AirportList inputA={''} inputB={inputB} handleChange={props.setAirFrom} />}
     </div>
   );
 };

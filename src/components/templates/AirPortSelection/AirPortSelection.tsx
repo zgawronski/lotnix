@@ -1,18 +1,16 @@
-import React, { ChangeEvent, FC, FormEvent, useState } from 'react';
+import React, { FC, FormEvent, useState } from 'react';
 import styled from 'styled-components';
-//import useDropdown from 'react-dropdown-hook';
-//import { AirportList } from '../../atoms/AirportList/AirportList';
 
-//import { AirportTo } from '../../molecules/AirportTo/AirportTo';
-//import { AirportFrom } from '../../molecules/AiportFrom/AirportFrom';
 import { Button } from '../../atoms/Button/Button';
-//import { Input } from '../../atoms/Input/Input';
 import { AirportFrom } from '../../molecules/AiportFrom/AirportFrom';
 import { AirportTo } from '../../molecules/AirportTo/AirportTo';
+import { flightConnectionList as FCList } from '../../../mocks/data/flightConnectionList';
 
 const Wrapper = styled.div`
   display: flex;
+  position: relative;
   justify-content: center;
+  align-items: center;
   width: 80%;
   margin-left: auto;
   margin-right: auto;
@@ -23,8 +21,7 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGrey};
   box-shadow: 0 0.1875em 0.5em rgba(0, 0, 0, 0.3);
   input {
-    margin-right: 3.125em;
-    margin-top: 0.9375em;
+    margin-right: 1.5em;
   }
   button {
     max-height: 3ch;
@@ -37,14 +34,10 @@ const Wrapper = styled.div`
 // };
 
 const AirPortSelection: FC = () => {
-  // const [wrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
-  // const menuHandler = () => {
-  //   toggleDropdown();
-  // };
-
-  const [findConnect, setFindingConnect] = useState<any>();
+  const [findConnect, setFindingConnect] = useState<string[]>(['Wybierz lotnisko startowe', 'Wybierz lotnisko docelowe']);
   const [airFrom, setAirFrom] = useState<string>('');
   const [airTo, setAirTo] = useState<string>('');
+  const [finder, setFinder] = useState<string[]>(['', '']);
   // const [inputText, setInputText] = useState<any>(initialFormState);
 
   // const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -53,14 +46,18 @@ const AirPortSelection: FC = () => {
   //     [e.target.name]: e.target.value,
   //   });
   // };
+  const finded = 'jest połączenie';
+  const cantFind = '';
 
   const buttonHandler = (e: FormEvent) => {
     e.preventDefault();
     const newConnection = [airFrom, airTo];
-    setFindingConnect([newConnection]);
+    setFindingConnect(newConnection);
     // setInputText(initialFormState);
     setAirFrom('');
     setAirTo('');
+    const whatIFind = FCList.map((finderek) => (finderek.includes(findConnect[0] && findConnect[1]) ? finded : cantFind));
+    setFinder(whatIFind);
   };
 
   return (
@@ -71,6 +68,9 @@ const AirPortSelection: FC = () => {
         <Button type="submit" name="blue">
           Wyszukaj
         </Button>
+      </Wrapper>
+      <Wrapper>
+        <h1>{finder}</h1>
       </Wrapper>
     </>
   );
