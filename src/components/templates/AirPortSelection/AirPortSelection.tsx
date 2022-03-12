@@ -49,21 +49,31 @@ const AirPortSelection: FC = () => {
   //     [e.target.name]: e.target.value,
   //   });
   // };
-  const finded = 'jest połączenie';
-  const cantFind = 'nima';
+  const finded = 'jest połączenie bezpośrednie';
+  const cantFind = 'nie ma połączenia bezpośredniego';
 
   const buttonHandler = (e: FormEvent) => {
     e.preventDefault();
     const newConnection = [airFrom, airTo];
     setFindingConnect(newConnection);
+    const directConnection = FCList.find((singleFly) => singleFly.includes(findConnect[0]) && singleFly.includes(findConnect[1]));
     // setInputText(initialFormState);
+    if (!directConnection) {
+    }
+    const isSingleConnection = directConnection != null ? finded : cantFind;
+    setFinder(isSingleConnection);
     setAirFrom('');
     setAirTo('');
-    const whatIFind = FCList.includes(findConnect);
-    console.log(findConnect);
-    console.log(FCList);
-    console.log(whatIFind);
   };
+
+  const FCLobject = FCList.map((el) => {
+    return {
+      key: el[0],
+      value: el[1],
+    };
+  });
+
+  console.log(FCLobject);
 
   return (
     <>
