@@ -5,17 +5,16 @@ import { airports } from '../../../mocks/data/airportsList';
 import { Wrapper } from './AirportList.styles';
 
 interface props {
-  inputA: string;
-  inputB: string;
+  inputText: string;
   handleChange: (e: any) => void;
 }
-export const AirportList: FC<props> = ({ inputA, inputB, handleChange }) => {
+export const AirportList: FC<props> = ({ inputText, handleChange }) => {
   return (
     <Wrapper>
       <ul>
         {airports.map(
           (airport) =>
-            airport.toLocaleLowerCase().includes(inputA || inputB) && (
+            airport.toLocaleLowerCase().includes(inputText) && (
               <li value={airport} key={airport} onClick={() => handleChange(airport)}>
                 {airport}
               </li>

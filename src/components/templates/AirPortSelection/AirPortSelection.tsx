@@ -1,35 +1,10 @@
-import React, { FC, FormEvent, useState } from 'react';
-import styled from 'styled-components';
+import React, { FC, FormEvent, useEffect, useState } from 'react';
 
 import { Button } from '../../atoms/Button/Button';
 import { AirportFrom } from '../../molecules/AiportFrom/AirportFrom';
 import { AirportTo } from '../../molecules/AirportTo/AirportTo';
 import { flightConnectionList as FCList } from '../../../mocks/data/flightConnectionList';
-
-const Wrapper = styled.div`
-  display: flex;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 1em;
-  border-radius: 0.5em;
-  padding: 1.5625em 3.125em;
-  color: ${({ theme }) => theme.colors.buttonBlue};
-  background-color: ${({ theme }) => theme.colors.lightGrey};
-  box-shadow: 0 0.1875em 0.5em rgba(0, 0, 0, 0.3);
-  input {
-    margin-right: 1.5em;
-  }
-  button {
-    max-height: 3ch;
-  }
-  div {
-    margin: 1em;
-  }
-`;
+import { Wrapper } from './AirportSelection.styles';
 
 // const initialFormState = {
 //   from: '',
@@ -37,10 +12,10 @@ const Wrapper = styled.div`
 // };
 
 const AirPortSelection: FC = () => {
-  const [findConnect, setFindingConnect] = useState<string[]>(['Wybierz lotnisko startowe', 'Wybierz lotnisko docelowe']);
+  const [findConnect, setFindingConnect] = useState<string[]>(['', '']);
   const [airFrom, setAirFrom] = useState<string>('');
   const [airTo, setAirTo] = useState<string>('');
-  const [finder, setFinder] = useState<string>('');
+  const [finder, setFinder] = useState<string>('Wyszukaj połączenie');
   // const [inputText, setInputText] = useState<any>(initialFormState);
 
   // const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,22 +31,27 @@ const AirPortSelection: FC = () => {
     e.preventDefault();
     const newConnection = [airFrom, airTo];
     setFindingConnect(newConnection);
-    const directConnection = FCList.find((singleFly) => singleFly.includes(findConnect[0]) && singleFly.includes(findConnect[1]));
     // setInputText(initialFormState);
-    if (!directConnection) {
-    }
-    const isSingleConnection = directConnection != null ? finded : cantFind;
-    setFinder(isSingleConnection);
     setAirFrom('');
     setAirTo('');
   };
 
+  const directConnection = FCList.find((singleFly) => singleFly.includes(findConnect[0]) && singleFly.includes(findConnect[1]));
+
+  const isSingleConnection = typeof directConnection !== undefined && directConnection ? finded : cantFind;
+
+  useEffect(() => {
+    setFinder(isSingleConnection);
+  }, [isSingleConnection]);
+
   const FCLobject = FCList.map((el) => {
     return {
-      key: el[0],
-      value: el[1],
+      first: el[0],
+      second: el[1],
     };
   });
+
+  FCLobject.unshift({ first: findConnect[0], second: findConnect[1] });
 
   console.log(FCLobject);
 
@@ -87,10 +67,10 @@ const AirPortSelection: FC = () => {
       <Wrapper>
         <h1>{finder}</h1>
         <div>
-          <h2>{findConnect[0]}</h2>
+          <h2>z: {findConnect[0]}</h2>
         </div>
         <div>
-          <h2>{findConnect[1]}</h2>
+          <h2>do: {findConnect[1]}</h2>
         </div>
       </Wrapper>
     </>
