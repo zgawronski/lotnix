@@ -16,6 +16,7 @@ export const Wrapper = styled.div`
   box-shadow: 0 0.1875em 0.5em rgba(0, 0, 0, 0.3);
   input {
     margin-right: 1.5em;
+    width: 100%;
   }
   button {
     max-height: 3ch;

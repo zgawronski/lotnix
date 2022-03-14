@@ -23,9 +23,15 @@ const AirportSelection: FC = () => {
     setAirTo('');
   };
 
+  const startAirport: string = findConnect[0];
+  const endAirport: string = findConnect[1];
+
+  const ShortestAirRoutes = FlyPathFinder(startAirport, endAirport);
+  const numberOfConnect: number = ShortestAirRoutes[0].length >= 3 ? ShortestAirRoutes[0].length - 2 : 0;
+
   // sprawdzenie czy istnieje połączenie bezpośrednie
   const finded = 'jest połączenie bezpośrednie';
-  const cantFind = 'nie ma połączenia bezpośredniego, proponujemy przesiadki:';
+  const cantFind = `nie ma połączenia bezpośredniego, proponujemy  z ${numberOfConnect} międzylądowaniami`;
   const directConnection = FCList.find((singleFly) => singleFly.includes(findConnect[0]) && singleFly.includes(findConnect[1]));
 
   const isSingleConnection = typeof directConnection !== undefined && directConnection ? finded : cantFind;
@@ -33,11 +39,6 @@ const AirportSelection: FC = () => {
   useEffect(() => {
     setFinder(isSingleConnection);
   }, [isSingleConnection]);
-
-  const startAirport: string = findConnect[0];
-  const endAirport: string = findConnect[1];
-
-  const ShortestAirRoutes = FlyPathFinder(startAirport, endAirport);
 
   return (
     <>

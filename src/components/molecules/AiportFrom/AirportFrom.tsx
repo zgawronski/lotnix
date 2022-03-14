@@ -25,7 +25,7 @@ export const AirportFrom: FC<Props> = (props) => {
         onChange={() => props.setAirFrom}
         name="from"
       />
-      {dropdownOpen && <AirportList inputText={props.airFrom} handleChange={props.setAirFrom} />}
+      {dropdownOpen && <AirportList handleChange={props.setAirFrom} />}
     </div>
   );
 };

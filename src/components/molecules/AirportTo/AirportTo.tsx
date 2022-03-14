@@ -1,7 +1,7 @@
 import React, { FC, SetStateAction } from 'react';
 import { Input } from '../../atoms/Input/Input';
-import useDropdown from 'react-dropdown-hook';
 import { AirportList } from '../../atoms/AirportList/AirportList';
+import useDropdown from 'react-dropdown-hook';
 
 type Props = {
   airTo: string;
@@ -25,7 +25,7 @@ export const AirportTo: FC<Props> = (props) => {
         onChange={() => props.setAirTo}
         name="to"
       />
-      {dropdownOpen && <AirportList inputText={props.airTo} handleChange={props.setAirTo} />}
+      {dropdownOpen && <AirportList handleChange={props.setAirTo} />}
     </div>
   );
 };
