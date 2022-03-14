@@ -22,8 +22,11 @@ export const Wrapper = styled.div`
   }
   div {
     margin: 1em;
-  }
-  h3 {
-    margin: 0.125em;
+    div {
+      h3 {
+        display: inline-block;
+        margin: 0.25em;
+      }
+    }
   }
 `;
