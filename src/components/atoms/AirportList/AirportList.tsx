@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, SetStateAction } from 'react';
 
 import { airports } from '../../../mocks/data/airportsList';
 
@@ -6,7 +6,7 @@ import { Wrapper } from './AirportList.styles';
 
 interface props {
   inputText: string;
-  handleChange: (e: any) => void;
+  handleChange: (e: SetStateAction<string>) => void;
 }
 export const AirportList: FC<props> = ({ inputText, handleChange }) => {
   return (

@@ -5,39 +5,27 @@ import { AirportFrom } from '../../molecules/AiportFrom/AirportFrom';
 import { AirportTo } from '../../molecules/AirportTo/AirportTo';
 import { flightConnectionList as FCList } from '../../../mocks/data/flightConnectionList';
 import { Wrapper } from './AirportSelection.styles';
+import { FlyPathFinder } from '../../atoms/FlyPathFinder/FlyPathFinder';
 
-// const initialFormState = {
-//   from: '',
-//   to: '',
-// };
-
-const AirPortSelection: FC = () => {
+const AirportSelection: FC = () => {
   const [findConnect, setFindingConnect] = useState<string[]>(['', '']);
   const [airFrom, setAirFrom] = useState<string>('');
   const [airTo, setAirTo] = useState<string>('');
   const [finder, setFinder] = useState<string>('Wyszukaj połączenie');
-  // const [inputText, setInputText] = useState<any>(initialFormState);
 
-  // const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setInputText({
-  //     ...inputText,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
-
-  // co
-  const finded = 'jest połączenie bezpośrednie';
-  const cantFind = 'nie ma połączenia bezpośredniego, proponujemy przesiadki:';
+  // obsługa button - wysyłka danych z input
 
   const buttonHandler = (e: FormEvent) => {
     e.preventDefault();
     const newConnection = [airFrom, airTo];
     setFindingConnect(newConnection);
-    // setInputText(initialFormState);
     setAirFrom('');
     setAirTo('');
   };
 
+  // sprawdzenie czy istnieje połączenie bezpośrednie
+  const finded = 'jest połączenie bezpośrednie';
+  const cantFind = 'nie ma połączenia bezpośredniego, proponujemy przesiadki:';
   const directConnection = FCList.find((singleFly) => singleFly.includes(findConnect[0]) && singleFly.includes(findConnect[1]));
 
   const isSingleConnection = typeof directConnection !== undefined && directConnection ? finded : cantFind;
@@ -47,70 +35,9 @@ const AirPortSelection: FC = () => {
   }, [isSingleConnection]);
 
   const startAirport: string = findConnect[0];
-
   const endAirport: string = findConnect[1];
 
-  const allConnections: string[][] = [];
-
-  FCList.forEach((el) => {
-    allConnections.push(el);
-    allConnections.push([el[1], el[0]]);
-    return allConnections;
-  });
-
-  const initRoute: string[] = [startAirport];
-
-  let routes: string[][] = [initRoute];
-
-  const GetDeparturesFromAirportWithoutRoutedAirports = (allConnections: string[][], Routes: string[]) => {
-    const lastRouteElement = Routes.filter((item: string, i: number, arr: string[]) => {
-      if (i + 1 === arr.length) return true;
-      else return false;
-    })[0];
-
-    const connections = allConnections.filter((el: string[]) => el[0] === lastRouteElement);
-
-    const routedFilteredConnections = connections.filter((el: string[]) => Routes.includes(el[1]) === false);
-
-    return routedFilteredConnections.map((el) => el[1]);
-  };
-
-  const GenerateNextLevelRoutes = (allConnections: string[][], routes: string[][]) => {
-    const nextLevelRoutes: string[][] = [];
-
-    routes.forEach((route) => {
-      const nextLvlConnections: string[] = GetDeparturesFromAirportWithoutRoutedAirports(allConnections, route);
-
-      if (nextLvlConnections.length > 0) {
-        nextLvlConnections.forEach((nextConnection) => {
-          const nextLevelRoute: string[] = route.filter(() => true);
-
-          nextLevelRoute.push(nextConnection);
-          nextLevelRoutes.push(nextLevelRoute);
-        });
-      }
-    });
-    return nextLevelRoutes;
-  };
-
-  while (true) {
-    routes = GenerateNextLevelRoutes(allConnections, routes);
-    if (routes.length === 0 || routes.find((x) => x.includes(endAirport))) break;
-  }
-
-  const ShortestAirRoutes: string[][] = [];
-  const ShowSummary = (endAirport: string, routes: string[][]) => {
-    const shortestRoutes = routes.filter((el: string[]) => el.includes(endAirport));
-    if (shortestRoutes.length > 0) {
-      shortestRoutes.forEach((el: string[]) => {
-        ShortestAirRoutes.push(el);
-      });
-    } else {
-      ShortestAirRoutes.push(['połączenie nie istnieje']);
-    }
-  };
-
-  ShowSummary(endAirport, routes);
+  const ShortestAirRoutes = FlyPathFinder(startAirport, endAirport);
 
   return (
     <>
@@ -135,10 +62,10 @@ const AirPortSelection: FC = () => {
       </Wrapper>
       <Wrapper>
         <div>
-          {ShortestAirRoutes.map((element) => (
+          {ShortestAirRoutes.map((routes) => (
             <div key={Math.random()}>
-              {element.map((el) => (
-                <h3 key={el}>{el} </h3>
+              {routes.map((route) => (
+                <h3 key={route}>{route} </h3>
               ))}
             </div>
           ))}
@@ -148,4 +75,4 @@ const AirPortSelection: FC = () => {
   );
 };
 
-export default AirPortSelection;
+export default AirportSelection;

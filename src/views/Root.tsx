@@ -6,7 +6,7 @@ import { GlobalStyle } from '../assets/styles/GlobalStyle';
 import { theme } from '../assets/styles/theme';
 import { Wrapper } from './Root.style';
 
-import AirPortSelection from '../components/templates/AirportSelection/AirportSelection';
+import AirportSelection from '../components/templates/AirPortSelection/AirportSelection';
 
 const Root: FC = () => {
   return (
@@ -15,7 +15,7 @@ const Root: FC = () => {
         <GlobalStyle />
         <Wrapper>
           <Routes>
-            <Route path="/" element={<AirPortSelection />} />
+            <Route path="/" element={<AirportSelection />} />
           </Routes>
         </Wrapper>
       </ThemeProvider>
