@@ -17,7 +17,7 @@ const AirportSelection: FC = () => {
 
   const buttonHandler = (e: FormEvent) => {
     e.preventDefault();
-    const newConnection = [airFrom, airTo];
+    const newConnection: string[] = [airFrom, airTo];
     setFindingConnect(newConnection);
     setAirFrom('');
     setAirTo('');
