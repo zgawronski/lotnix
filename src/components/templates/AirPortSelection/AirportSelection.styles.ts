@@ -23,4 +23,7 @@ export const Wrapper = styled.div`
   div {
     margin: 1em;
   }
+  h3 {
+    margin: 0.125em;
+  }
 `;

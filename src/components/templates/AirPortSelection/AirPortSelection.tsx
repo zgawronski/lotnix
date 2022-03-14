@@ -25,9 +25,9 @@ const AirPortSelection: FC = () => {
   //   });
   // };
 
-  // console.log(findConnect);
+  // co
   const finded = 'jest połączenie bezpośrednie';
-  const cantFind = 'nie ma połączenia bezpośredniego';
+  const cantFind = 'nie ma połączenia bezpośredniego, proponujemy przesiadki:';
 
   const buttonHandler = (e: FormEvent) => {
     e.preventDefault();
@@ -98,18 +98,20 @@ const AirPortSelection: FC = () => {
     if (routes.length === 0 || routes.find((x) => x.includes(endAirport))) break;
   }
 
+  const ShortestAirRoutes: string[][] = [];
   const ShowSummary = (endAirport: string, routes: string[][]) => {
     const shortestRoutes = routes.filter((el: string[]) => el.includes(endAirport));
     if (shortestRoutes.length > 0) {
       shortestRoutes.forEach((el: string[]) => {
-        console.log(el);
+        ShortestAirRoutes.push(el);
       });
     } else {
-      console.log('połączenia nie ma');
+      ShortestAirRoutes.push(['połączenie nie istnieje']);
     }
   };
 
   ShowSummary(endAirport, routes);
+  console.log(ShortestAirRoutes);
 
   return (
     <>
@@ -121,12 +123,26 @@ const AirPortSelection: FC = () => {
         </Button>
       </Wrapper>
       <Wrapper>
-        <h1>{finder}</h1>
+        <h2>Szukane połączenie</h2>
         <div>
           <h2>z: {findConnect[0]}</h2>
         </div>
         <div>
           <h2>do: {findConnect[1]}</h2>
+        </div>
+      </Wrapper>
+      <Wrapper>
+        <h2>{finder}</h2>
+      </Wrapper>
+      <Wrapper>
+        <div>
+          {ShortestAirRoutes.map((element) => (
+            <div key={Math.random()}>
+              {element.map((el) => (
+                <h3 key={el}>{el} </h3>
+              ))}
+            </div>
+          ))}
         </div>
       </Wrapper>
     </>
