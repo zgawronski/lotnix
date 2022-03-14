@@ -111,7 +111,6 @@ const AirPortSelection: FC = () => {
   };
 
   ShowSummary(endAirport, routes);
-  console.log(ShortestAirRoutes);
 
   return (
     <>
