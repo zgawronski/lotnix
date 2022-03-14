@@ -1,2 +1,1 @@
-1. setup projektu
-
+Aplikacja dla lotniska - wyszukiwanie połączeń
