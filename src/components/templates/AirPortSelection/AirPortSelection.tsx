@@ -24,6 +24,8 @@ const AirPortSelection: FC = () => {
   //     [e.target.name]: e.target.value,
   //   });
   // };
+
+  // console.log(findConnect);
   const finded = 'jest połączenie bezpośrednie';
   const cantFind = 'nie ma połączenia bezpośredniego';
 
@@ -44,16 +46,70 @@ const AirPortSelection: FC = () => {
     setFinder(isSingleConnection);
   }, [isSingleConnection]);
 
-  const FCLobject = FCList.map((el) => {
-    return {
-      first: el[0],
-      second: el[1],
-    };
+  const startAirport: string = findConnect[0];
+
+  const endAirport: string = findConnect[1];
+
+  const allConnections: string[][] = [];
+
+  FCList.forEach((el) => {
+    allConnections.push(el);
+    allConnections.push([el[1], el[0]]);
+    return allConnections;
   });
 
-  FCLobject.unshift({ first: findConnect[0], second: findConnect[1] });
+  const initRoute: string[] = [startAirport];
 
-  console.log(FCLobject);
+  let routes: string[][] = [initRoute];
+
+  const GetDeparturesFromAirportWithoutRoutedAirports = (allConnections: string[][], Routes: string[]) => {
+    const lastRouteElement = Routes.filter((item: string, i: number, arr: string[]) => {
+      if (i + 1 === arr.length) return true;
+      else return false;
+    })[0];
+
+    const connections = allConnections.filter((el: string[]) => el[0] === lastRouteElement);
+
+    const routedFilteredConnections = connections.filter((el: string[]) => Routes.includes(el[1]) === false);
+
+    return routedFilteredConnections.map((el) => el[1]);
+  };
+
+  const GenerateNextLevelRoutes = (allConnections: string[][], routes: string[][]) => {
+    const nextLevelRoutes: string[][] = [];
+
+    routes.forEach((route) => {
+      const nextLvlConnections: string[] = GetDeparturesFromAirportWithoutRoutedAirports(allConnections, route);
+
+      if (nextLvlConnections.length > 0) {
+        nextLvlConnections.forEach((nextConnection) => {
+          const nextLevelRoute: string[] = route.filter(() => true);
+
+          nextLevelRoute.push(nextConnection);
+          nextLevelRoutes.push(nextLevelRoute);
+        });
+      }
+    });
+    return nextLevelRoutes;
+  };
+
+  while (true) {
+    routes = GenerateNextLevelRoutes(allConnections, routes);
+    if (routes.length === 0 || routes.find((x) => x.includes(endAirport))) break;
+  }
+
+  const ShowSummary = (endAirport: string, routes: string[][]) => {
+    const shortestRoutes = routes.filter((el: string[]) => el.includes(endAirport));
+    if (shortestRoutes.length > 0) {
+      shortestRoutes.forEach((el: string[]) => {
+        console.log(el);
+      });
+    } else {
+      console.log('połączenia nie ma');
+    }
+  };
+
+  ShowSummary(endAirport, routes);
 
   return (
     <>
