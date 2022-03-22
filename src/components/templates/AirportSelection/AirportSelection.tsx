@@ -15,10 +15,9 @@ const initialFormState = {
 const AirportSelection: FC = () => {
   const [inputText, setInputText] = useState<any>(initialFormState);
   const [findConnect, setFindingConnect] = useState<string[]>(['', '']);
-  // const [airFrom, setAirFrom] = useState<string>('');
-  // const [airTo, setAirTo] = useState<string>('');
   const [finder, setFinder] = useState<string>('Wyszukaj połączenie');
 
+  // input handler - colecting inputs value to object;
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputText({
       ...inputText,
@@ -26,7 +25,7 @@ const AirportSelection: FC = () => {
     });
   };
 
-  // obsługa button - wysyłka danych z input
+  // button handler - export data from input
 
   const buttonHandler = (e: FormEvent) => {
     e.preventDefault();
