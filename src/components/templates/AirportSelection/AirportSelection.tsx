@@ -1,26 +1,39 @@
-import React, { FC, FormEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 
 import { Button } from '../../atoms/Button/Button';
-import { AirportFrom } from '../../molecules/AiportFrom/AirportFrom';
-import { AirportTo } from '../../molecules/AirportTo/AirportTo';
+import { DestinationAirports } from '../../molecules/DestinationAirports/DestinationAirports';
+//import { AirportTo } from '../../molecules/AirportTo/AirportTo';
 import { flightConnectionList as FCList } from '../../../mocks/data/flightConnectionList';
 import { Wrapper } from './AirportSelection.styles';
-import { FlyPathFinder } from '../../atoms/FlyPathFinder/FlyPathFinder';
+import { FlyPathFinder } from '../../molecules/FlyPathFinder/FlyPathFinder';
+
+const initialFormState = {
+  from: '',
+  to: '',
+};
 
 const AirportSelection: FC = () => {
+  const [inputText, setInputText] = useState<any>(initialFormState);
   const [findConnect, setFindingConnect] = useState<string[]>(['', '']);
-  const [airFrom, setAirFrom] = useState<string>('');
-  const [airTo, setAirTo] = useState<string>('');
+  // const [airFrom, setAirFrom] = useState<string>('');
+  // const [airTo, setAirTo] = useState<string>('');
   const [finder, setFinder] = useState<string>('Wyszukaj połączenie');
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputText({
+      ...inputText,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   // obsługa button - wysyłka danych z input
 
   const buttonHandler = (e: FormEvent) => {
     e.preventDefault();
-    const newConnection: string[] = [airFrom, airTo];
+    const newConnection: string[] = [inputText.from.toUpperCase(), inputText.to.toUpperCase()];
     setFindingConnect(newConnection);
-    setAirFrom('');
-    setAirTo('');
+    //setAirFrom('');
+    //setAirTo('');
   };
 
   const startAirport: string = findConnect[0];
@@ -43,8 +56,7 @@ const AirportSelection: FC = () => {
   return (
     <>
       <Wrapper as="form" onSubmit={buttonHandler}>
-        <AirportFrom airFrom={airFrom} setAirFrom={setAirFrom} />
-        <AirportTo airTo={airTo} setAirTo={setAirTo} />
+        <DestinationAirports inputText={inputText} handleInputChange={handleInputChange} />
         <Button type="submit" name="blue">
           Wyszukaj
         </Button>

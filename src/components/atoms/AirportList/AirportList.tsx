@@ -1,21 +1,25 @@
-import React, { FC, SetStateAction } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 
 import { airports } from '../../../mocks/data/airportsList';
 
 import { Wrapper } from './AirportList.styles';
 
 interface props {
-  handleChange: (e: SetStateAction<string>) => void;
+  inputText: any;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
-export const AirportList: FC<props> = ({ handleChange }) => {
+export const AirportList: FC<props> = ({ handleChange, inputText }) => {
   return (
     <Wrapper>
       <ul>
-        {airports.map((airport) => (
-          <li value={airport} key={airport} onClick={() => handleChange(airport)}>
-            {airport}
-          </li>
-        ))}
+        {airports.map(
+          (airport) =>
+            airport.toLocaleLowerCase().includes(inputText.to.toLowerCase() || inputText.from.toLowerCase()) && (
+              <li value={airport} key={airport} onClick={() => handleChange}>
+                {airport}
+              </li>
+            )
+        )}
       </ul>
     </Wrapper>
   );

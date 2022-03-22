@@ -1,4 +1,5 @@
 import { flightConnectionList as FCList } from '../../../mocks/data/flightConnectionList';
+import { GetUnselectedDepartures } from '../GetUnselectedDepartures/GetUnselectedDepartures';
 
 export const FlyPathFinder = (startAirport: string, endAirport: string) => {
   const allConnections: string[][] = [];
@@ -12,24 +13,11 @@ export const FlyPathFinder = (startAirport: string, endAirport: string) => {
 
   let routes: string[][] = [initRoute];
 
-  const GetDeparturesFromAirportWithoutRoutedAirports = (allConnections: string[][], Routes: string[]) => {
-    const lastRouteElement = Routes.filter((item: string, i: number, arr: string[]) => {
-      if (i + 1 === arr.length) return true;
-      else return false;
-    })[0];
-
-    const connections = allConnections.filter((el: string[]) => el[0] === lastRouteElement);
-
-    const routedFilteredConnections = connections.filter((el: string[]) => Routes.includes(el[1]) === false);
-
-    return routedFilteredConnections.map((el) => el[1]);
-  };
-
   const GenerateNextLevelRoutes = (allConnections: string[][], routes: string[][]) => {
     const nextLevelRoutes: string[][] = [];
 
     routes.forEach((route) => {
-      const nextLvlConnections: string[] = GetDeparturesFromAirportWithoutRoutedAirports(allConnections, route);
+      const nextLvlConnections: string[] = GetUnselectedDepartures(allConnections, route);
 
       if (nextLvlConnections.length > 0) {
         nextLvlConnections.forEach((nextConnection) => {
