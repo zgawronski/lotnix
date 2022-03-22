@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FC } from 'react';
 import { Input } from '../../atoms/Input/Input';
 import useDropdown from 'react-dropdown-hook';
-import { AirportList } from '../../atoms/AirportList/AirportList';
+import { AirportList } from '../AirportList/AirportList';
 
 type Props = {
   inputText: any;
