@@ -28,7 +28,8 @@ export const DestinationAirports: FC<Props> = (props) => {
         <select onChange={props.handleSelectChange} name="to">
           {airports.map(
             (airport) =>
-              airport.toLocaleLowerCase().includes(props.inputText.to.toLowerCase()) && (
+              airport.toLocaleLowerCase().includes(props.inputText.to.toLowerCase()) &&
+              !airport.toLocaleLowerCase().includes(props.inputText.from.toLowerCase()) && (
                 <option value={airport} key={airport}>
                   {airport}
                 </option>

@@ -39,6 +39,7 @@ const AirportSelection: FC = () => {
     e.preventDefault();
     const newConnection: string[] = [inputText.from.toUpperCase(), inputText.to.toUpperCase()];
     setFindingConnect(newConnection);
+    setInputText(initialFormState);
   };
 
   const startAirport: string = findConnect[0];
