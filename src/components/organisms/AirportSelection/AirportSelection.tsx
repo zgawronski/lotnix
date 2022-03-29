@@ -18,12 +18,12 @@ const AirportSelection: FC = () => {
   const [finder, setFinder] = useState<string>('Wyszukaj połączenie');
 
   // input handler - colecting inputs value to object;
-  const handleInputChange = (e: any) => {
-    setInputText({
-      ...inputText,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // const handleInputChange = (e: any) => {
+  //   setInputText({
+  //     ...inputText,
+  //     [e.target.name]: e.target.value,
+  //   });
+  // };
   console.log(inputText);
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -61,7 +61,7 @@ const AirportSelection: FC = () => {
   return (
     <>
       <Wrapper as="form" onSubmit={buttonHandler}>
-        <DestinationAirports inputText={inputText} handleInputChange={handleInputChange} handleSelectChange={handleSelectChange} />
+        <DestinationAirports inputText={inputText} handleSelectChange={handleSelectChange} />
         <Button type="submit" name="blue">
           Wyszukaj
         </Button>

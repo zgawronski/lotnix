@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
-import { Input } from '../../atoms/Input/Input';
-import { AirportList } from '../AirportList/AirportList';
+import { airports } from '../../../mocks/data/airportsList';
+// import { Input } from '../../atoms/Input/Input';
+// import { AirportList } from '../AirportList/AirportList';
 
 type Props = {
   inputText: any;
-  handleInputChange: (e: any) => void;
+  // handleInputChange: (e: any) => void;
   handleSelectChange: (e: any) => void;
 };
 
@@ -12,12 +13,28 @@ export const DestinationAirports: FC<Props> = (props) => {
   return (
     <>
       <div>
-        <Input key="from" type="text" value={props.inputText.from} onChange={props.handleInputChange} name="from" />
-        <AirportList handleSelectChange={props.handleSelectChange} inputText={props.inputText} key="fromA" />
+        <select onChange={props.handleSelectChange} name="from">
+          {airports.map(
+            (airport) =>
+              airport.toLocaleLowerCase().includes(props.inputText.from.toLowerCase()) && (
+                <option value={airport} key={airport}>
+                  {airport}
+                </option>
+              )
+          )}
+        </select>
       </div>
       <div>
-        <Input key="to" type="text" value={props.inputText.to} onChange={props.handleInputChange} name="to" />
-        <AirportList handleSelectChange={props.handleSelectChange} inputText={props.inputText} key="toA" />
+        <select onChange={props.handleSelectChange} name="to">
+          {airports.map(
+            (airport) =>
+              airport.toLocaleLowerCase().includes(props.inputText.to.toLowerCase()) && (
+                <option value={airport} key={airport}>
+                  {airport}
+                </option>
+              )
+          )}
+        </select>
       </div>
     </>
   );
