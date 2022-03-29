@@ -13,17 +13,10 @@ const initialFormState = {
 };
 
 const AirportSelection: FC = () => {
-  const [inputText, setInputText] = useState<any>(initialFormState);
+  const [inputText, setInputText] = useState(initialFormState);
   const [findConnect, setFindingConnect] = useState<string[]>(['', '']);
   const [finder, setFinder] = useState<string>('Wyszukaj połączenie');
 
-  // input handler - colecting inputs value to object;
-  // const handleInputChange = (e: any) => {
-  //   setInputText({
-  //     ...inputText,
-  //     [e.target.name]: e.target.value,
-  //   });
-  // };
   console.log(inputText);
 
   const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
