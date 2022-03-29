@@ -6,21 +6,21 @@ import { Wrapper } from './AirportList.styles';
 
 interface props {
   inputText: any;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleSelectChange: (e: any) => void;
 }
-export const AirportList: FC<props> = ({ handleChange, inputText }) => {
+export const AirportList: FC<props> = ({ handleSelectChange, inputText }) => {
   return (
     <Wrapper>
-      <ul>
+      <select onChange={handleSelectChange}>
         {airports.map(
           (airport) =>
             airport.toLocaleLowerCase().includes(inputText.to.toLowerCase() || inputText.from.toLowerCase()) && (
-              <li value={airport} key={airport} onClick={() => handleChange}>
+              <option value={airport} key={airport}>
                 {airport}
-              </li>
+              </option>
             )
         )}
-      </ul>
+      </select>
     </Wrapper>
   );
 };

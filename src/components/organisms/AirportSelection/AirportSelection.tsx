@@ -18,7 +18,15 @@ const AirportSelection: FC = () => {
   const [finder, setFinder] = useState<string>('Wyszukaj połączenie');
 
   // input handler - colecting inputs value to object;
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: any) => {
+    setInputText({
+      ...inputText,
+      [e.target.name]: e.target.value,
+    });
+  };
+  console.log(inputText);
+
+  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setInputText({
       ...inputText,
       [e.target.name]: e.target.value,
@@ -31,8 +39,6 @@ const AirportSelection: FC = () => {
     e.preventDefault();
     const newConnection: string[] = [inputText.from.toUpperCase(), inputText.to.toUpperCase()];
     setFindingConnect(newConnection);
-    //setAirFrom('');
-    //setAirTo('');
   };
 
   const startAirport: string = findConnect[0];
@@ -55,7 +61,7 @@ const AirportSelection: FC = () => {
   return (
     <>
       <Wrapper as="form" onSubmit={buttonHandler}>
-        <DestinationAirports inputText={inputText} handleInputChange={handleInputChange} />
+        <DestinationAirports inputText={inputText} handleInputChange={handleInputChange} handleSelectChange={handleSelectChange} />
         <Button type="submit" name="blue">
           Wyszukaj
         </Button>

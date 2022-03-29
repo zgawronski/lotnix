@@ -1,26 +1,24 @@
-import React, { ChangeEvent, FC } from 'react';
+import React, { FC } from 'react';
 import { Input } from '../../atoms/Input/Input';
-import useDropdown from 'react-dropdown-hook';
 import { AirportList } from '../AirportList/AirportList';
 
 type Props = {
   inputText: any;
-  handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleInputChange: (e: any) => void;
+  handleSelectChange: (e: any) => void;
 };
 
 export const DestinationAirports: FC<Props> = (props) => {
-  const [wrapperRef, dropdownOpen, toggleDropdown] = useDropdown();
-  const menuHandler = () => {
-    toggleDropdown();
-  };
-
   return (
-    <div ref={wrapperRef}>
-      <Input key="from" type="text" onClick={menuHandler} value={props.inputText.from} onChange={props.handleInputChange} name="from" />
-      {dropdownOpen && <AirportList handleChange={props.handleInputChange} inputText={props.inputText} />}
-
-      <Input key="to" type="text" onClick={menuHandler} value={props.inputText.to} onChange={props.handleInputChange} name="to" />
-      {dropdownOpen && <AirportList handleChange={props.handleInputChange} inputText={props.inputText} />}
-    </div>
+    <>
+      <div>
+        <Input key="from" type="text" value={props.inputText.from} onChange={props.handleInputChange} name="from" />
+        <AirportList handleSelectChange={props.handleSelectChange} inputText={props.inputText} key="fromA" />
+      </div>
+      <div>
+        <Input key="to" type="text" value={props.inputText.to} onChange={props.handleInputChange} name="to" />
+        <AirportList handleSelectChange={props.handleSelectChange} inputText={props.inputText} key="toA" />
+      </div>
+    </>
   );
 };
